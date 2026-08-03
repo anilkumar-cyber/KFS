@@ -61,7 +61,7 @@ export default function ContactPage() {
             <h1 className="font-heading text-3xl sm:text-4xl font-bold text-white text-balance">Get in Touch</h1>
             <p className="text-white/70 max-w-xl text-pretty">
               Have a question about loans, real estate or taxation services? Our team is here to help — reach out
-              any way that's convenient for you.
+              any way that&apos;s convenient for you.
             </p>
           </div>
         </Container>
@@ -133,7 +133,7 @@ export default function ContactPage() {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Headquartered in Hyderabad, we serve customers across{" "}
                   {siteConfig.locations.join(", ")} through our network of relationship managers, branch
-                  partners and digital channels. Can't visit in person? Our team is happy to assist over phone,
+                  partners and digital channels. Can&apos;t visit in person? Our team is happy to assist over phone,
                   email or WhatsApp.
                 </p>
               </div>

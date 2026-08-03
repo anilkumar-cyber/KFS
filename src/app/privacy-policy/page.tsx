@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
         <Container>
           <div className="max-w-3xl mx-auto flex flex-col gap-8 text-foreground/85 leading-relaxed">
             <p>
-              {siteConfig.name} ("Kavya", "we", "us", or "our") is committed to protecting the privacy of every
+              {siteConfig.name} (&quot;Kavya&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting the privacy of every
               visitor to our website and every customer who uses our loan facilitation, real estate advisory, and
               taxation services. This Privacy Policy explains what information we collect, how we use it, and the
               choices you have regarding your data. By using our website or services, you agree to the terms of
@@ -146,7 +146,7 @@ export default function PrivacyPolicyPage() {
               <h2 className="font-heading text-xl font-bold mb-3">9. Changes to This Policy</h2>
               <p>
                 We may update this Privacy Policy from time to time to reflect changes in our practices or legal
-                requirements. Any changes will be posted on this page with a revised "Last updated" date. We
+                requirements. Any changes will be posted on this page with a revised &quot;Last updated&quot; date. We
                 encourage you to review this policy periodically.
               </p>
             </div>

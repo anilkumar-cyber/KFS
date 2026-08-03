@@ -164,7 +164,7 @@ export function LeadForm({
             name="interest"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>I'm interested in</FormLabel>
+                <FormLabel>I&apos;m interested in</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger className="w-full">

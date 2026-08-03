@@ -32,8 +32,8 @@ export default function TermsPage() {
         <Container>
           <div className="max-w-3xl mx-auto flex flex-col gap-8 text-foreground/85 leading-relaxed">
             <p>
-              These Terms &amp; Conditions ("Terms") govern your access to and use of the website and services
-              provided by {siteConfig.name} ("Kavya", "we", "us", or "our"). By accessing our website or engaging
+              These Terms &amp; Conditions (&quot;Terms&quot;) govern your access to and use of the website and services
+              provided by {siteConfig.name} (&quot;Kavya&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). By accessing our website or engaging
               our services, you agree to be bound by these Terms. If you do not agree, please discontinue use of
               our website and services.
             </p>

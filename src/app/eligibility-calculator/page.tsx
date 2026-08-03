@@ -26,7 +26,7 @@ export default function EligibilityCalculatorPage() {
               Loan Eligibility Calculator
             </h1>
             <p className="text-white/70 max-w-xl text-pretty">
-              Find out how much loan you're likely eligible for based on your income, age, occupation and credit
+              Find out how much loan you&apos;re likely eligible for based on your income, age, occupation and credit
               profile — in under a minute.
             </p>
           </div>

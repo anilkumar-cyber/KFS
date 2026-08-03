@@ -29,7 +29,7 @@ export default function TestimonialsPage() {
               What Our Customers Say
             </h1>
             <p className="text-white/70 max-w-xl text-pretty">
-              Real stories from over 50,000 customers we've helped across Telangana, Andhra Pradesh &amp; Karnataka.
+              Real stories from over 50,000 customers we&apos;ve helped across Telangana, Andhra Pradesh &amp; Karnataka.
             </p>
           </div>
         </Container>
@@ -80,7 +80,7 @@ export default function TestimonialsPage() {
               Had a great experience with us?
             </h2>
             <p className="text-white/70 max-w-lg text-pretty">
-              We'd love to hear your story. Share your experience and help other customers make confident financial
+              We&apos;d love to hear your story. Share your experience and help other customers make confident financial
               decisions.
             </p>
             <Button asChild size="lg" className="rounded-full bg-accent hover:bg-accent/90 text-white font-semibold">

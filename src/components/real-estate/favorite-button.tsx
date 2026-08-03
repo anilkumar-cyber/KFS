@@ -37,6 +37,7 @@ export function FavoriteButton({
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncs from localStorage (external source of truth) after mount
     setIsFavorite(readFavorites().includes(propertyId));
   }, [propertyId]);
 

@@ -38,6 +38,7 @@ export function Navbar() {
   }, []);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- resets transient UI state on route change
     setMobileOpen(false);
     setOpenMenu(null);
   }, [pathname]);

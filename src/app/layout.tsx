@@ -5,9 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { FloatingActions } from "@/components/layout/floating-actions";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { siteConfig } from "@/lib/site-config";
 import { OrganizationJsonLd } from "@/components/shared/json-ld";
 
@@ -96,10 +94,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <TooltipProvider delay={150}>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <FloatingActions />
+            <SiteChrome>{children}</SiteChrome>
             <Toaster richColors position="top-right" />
           </TooltipProvider>
         </ThemeProvider>

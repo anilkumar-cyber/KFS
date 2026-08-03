@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { leadFormSchema } from "@/lib/validation/lead";
+import { prisma } from "@/lib/db";
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
@@ -42,9 +43,19 @@ export async function POST(request: NextRequest) {
 
   const { company: _company, ...lead } = parsed.data;
 
-  // In production this would persist to the CRM/database and trigger
-  // notification workflows (email/SMS/WhatsApp). Logged here for the MVP.
-  console.log("[lead:new]", { ...lead, ip, receivedAt: new Date().toISOString() });
+  // TODO: trigger notification workflows (email/SMS/WhatsApp) once those integrations exist.
+  await prisma.lead.create({
+    data: {
+      name: lead.name,
+      phone: lead.phone,
+      email: lead.email || null,
+      city: lead.city || null,
+      interest: lead.interest,
+      message: lead.message || null,
+      source: lead.source || null,
+      ip,
+    },
+  });
 
   return NextResponse.json({ ok: true });
 }

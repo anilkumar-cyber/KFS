@@ -27,6 +27,10 @@ import {
   ReceiptIndianRupee,
   IdCard,
   PenTool,
+  LayoutDashboard,
+  Gavel,
+  Star,
+  HelpCircle,
   type LucideIcon,
 } from "lucide-react";
 
@@ -59,6 +63,10 @@ export const iconMap: Record<string, LucideIcon> = {
   ReceiptIndianRupee,
   IdCard,
   PenTool,
+  LayoutDashboard,
+  Gavel,
+  Star,
+  HelpCircle,
 };
 
 export function getIcon(name: string): LucideIcon {

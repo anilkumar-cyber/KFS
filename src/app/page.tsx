@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/lib/site-config";
 import { Hero } from "@/components/home/hero";
 import { CalculatorsSection } from "@/components/home/calculators-section";
 import { FeaturedLoans } from "@/components/home/featured-loans";
@@ -12,7 +13,7 @@ import { LatestBlogs } from "@/components/home/latest-blogs";
 import { CtaSection } from "@/components/home/cta-section";
 
 export const metadata: Metadata = {
-  title: "Home Loans, Real Estate & Financial Services",
+  title: `Home Loans, Real Estate & Financial Services | ${siteConfig.name}`,
   description:
     "Kavya Financial Services offers home loans, personal loans, business loans, real estate and GST/tax services across Telangana, Andhra Pradesh & Karnataka. Get the best rates from 25+ banks.",
   alternates: { canonical: "/" },

@@ -150,8 +150,8 @@ export default function AboutPage() {
               </div>
               <h2 className="font-heading text-xl font-bold mb-3">Our Vision</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                To be South India's most trusted one-stop financial partner — recognized for integrity, speed and
-                genuinely putting the customer's best interest first, in every loan, property and tax decision we
+                To be South India&apos;s most trusted one-stop financial partner — recognized for integrity, speed and
+                genuinely putting the customer&apos;s best interest first, in every loan, property and tax decision we
                 help with.
               </p>
             </div>
@@ -168,7 +168,7 @@ export default function AboutPage() {
             description="From a small loan advisory desk to a full-service financial partner across three states."
           />
           <div className="mt-12 max-w-2xl mx-auto">
-            {journey.map((item, i) => (
+            {journey.map((item) => (
               <div key={item.year} className="relative pl-8 pb-10 last:pb-0 border-l border-border">
                 <span className="absolute -left-[7px] top-0 flex size-3.5 items-center justify-center rounded-full bg-secondary ring-4 ring-background" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-secondary">{item.year}</span>

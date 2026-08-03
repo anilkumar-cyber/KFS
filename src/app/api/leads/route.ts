@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const { company: _company, ...lead } = parsed.data;
+  const lead = parsed.data;
 
   // TODO: trigger notification workflows (email/SMS/WhatsApp) once those integrations exist.
   await prisma.lead.create({

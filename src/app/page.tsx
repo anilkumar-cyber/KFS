@@ -11,6 +11,11 @@ import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { ServicesOverview } from "@/components/home/services-overview";
 import { LatestBlogs } from "@/components/home/latest-blogs";
 import { CtaSection } from "@/components/home/cta-section";
+import { getAllLoans } from "@/lib/queries/loans";
+import { getFeaturedProperties } from "@/lib/queries/properties";
+import { getAllBanks } from "@/lib/queries/banks";
+import { getApprovedTestimonials } from "@/lib/queries/testimonials";
+import { getAllPosts } from "@/lib/queries/blogs";
 
 export const metadata: Metadata = {
   title: `Home Loans, Real Estate & Financial Services | ${siteConfig.name}`,
@@ -19,19 +24,44 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function Home() {
+export const revalidate = 60;
+
+const featuredLoanSlugs = [
+  "home-loan",
+  "personal-loan",
+  "loan-against-property",
+  "business-loan",
+  "plot-loan",
+  "car-loan",
+  "education-loan",
+  "commercial-loan",
+];
+
+export default async function Home() {
+  const [allLoans, featuredProperties, banks, testimonials, posts] = await Promise.all([
+    getAllLoans(),
+    getFeaturedProperties(4),
+    getAllBanks(),
+    getApprovedTestimonials(),
+    getAllPosts(),
+  ]);
+
+  const featuredLoans = featuredLoanSlugs
+    .map((slug) => allLoans.find((l) => l.slug === slug))
+    .filter((l): l is NonNullable<typeof l> => Boolean(l));
+
   return (
     <>
       <Hero />
       <StatsSection />
-      <FeaturedLoans />
+      <FeaturedLoans loans={featuredLoans} />
       <CalculatorsSection />
-      <FeaturedProperties />
+      <FeaturedProperties properties={featuredProperties} />
       <WhyChooseUs />
       <ServicesOverview />
-      <PartnerBanks />
-      <TestimonialsSection />
-      <LatestBlogs />
+      <PartnerBanks banks={banks} />
+      <TestimonialsSection testimonials={testimonials.slice(0, 6)} />
+      <LatestBlogs posts={posts.slice(0, 3)} />
       <CtaSection />
     </>
   );

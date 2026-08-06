@@ -5,7 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { loanProducts } from "@/lib/data/loans";
 import { properties, auctionProperties } from "@/lib/data/properties";
 import { taxServices } from "@/lib/data/tax-services";
-import { blogPosts } from "@/lib/data/blogs";
+import { getAllPosts } from "@/lib/queries/blogs";
 
 export const metadata: Metadata = {
   title: "Sitemap",
@@ -16,67 +16,71 @@ export const metadata: Metadata = {
 type LinkItem = { label: string; href: string };
 type LinkGroup = { heading: string; links: LinkItem[] };
 
-const groups: LinkGroup[] = [
-  {
-    heading: "Main",
-    links: [
-      { label: "Home", href: "/" },
-      { label: "EMI Calculator", href: "/emi-calculator" },
-      { label: "Eligibility Calculator", href: "/eligibility-calculator" },
-      { label: "Lead Generation & Marketing", href: "/lead-generation" },
-    ],
-  },
-  {
-    heading: "Loan Services",
-    links: [
-      { label: "All Loans", href: "/loans" },
-      ...loanProducts.map((l) => ({ label: l.name, href: `/loans/${l.slug}` })),
-    ],
-  },
-  {
-    heading: "Real Estate",
-    links: [
-      { label: "All Properties", href: "/real-estate" },
-      { label: "Auction Properties", href: "/auction-properties" },
-      ...properties.map((p) => ({ label: p.title, href: `/real-estate/${p.slug}` })),
-      ...auctionProperties.map((p) => ({ label: p.title, href: "/auction-properties" })),
-    ],
-  },
-  {
-    heading: "Tax & Compliance Services",
-    links: [
-      { label: "All Tax Services", href: "/tax-services" },
-      ...taxServices.map((t) => ({ label: t.name, href: `/tax-services/${t.slug}` })),
-    ],
-  },
-  {
-    heading: "Blog",
-    links: [
-      { label: "All Articles", href: "/blogs" },
-      ...blogPosts.map((b) => ({ label: b.title, href: `/blogs/${b.slug}` })),
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Testimonials", href: "/testimonials" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Careers", href: "/careers" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    heading: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Terms & Conditions", href: "/terms" },
-      { label: "Sitemap", href: "/sitemap-page" },
-    ],
-  },
-];
+function buildGroups(blogPosts: { title: string; slug: string }[]): LinkGroup[] {
+  return [
+    {
+      heading: "Main",
+      links: [
+        { label: "Home", href: "/" },
+        { label: "EMI Calculator", href: "/emi-calculator" },
+        { label: "Eligibility Calculator", href: "/eligibility-calculator" },
+        { label: "Lead Generation & Marketing", href: "/lead-generation" },
+      ],
+    },
+    {
+      heading: "Loan Services",
+      links: [
+        { label: "All Loans", href: "/loans" },
+        ...loanProducts.map((l) => ({ label: l.name, href: `/loans/${l.slug}` })),
+      ],
+    },
+    {
+      heading: "Real Estate",
+      links: [
+        { label: "All Properties", href: "/real-estate" },
+        { label: "Auction Properties", href: "/auction-properties" },
+        ...properties.map((p) => ({ label: p.title, href: `/real-estate/${p.slug}` })),
+        ...auctionProperties.map((p) => ({ label: p.title, href: "/auction-properties" })),
+      ],
+    },
+    {
+      heading: "Tax & Compliance Services",
+      links: [
+        { label: "All Tax Services", href: "/tax-services" },
+        ...taxServices.map((t) => ({ label: t.name, href: `/tax-services/${t.slug}` })),
+      ],
+    },
+    {
+      heading: "Blog",
+      links: [
+        { label: "All Articles", href: "/blogs" },
+        ...blogPosts.map((b) => ({ label: b.title, href: `/blogs/${b.slug}` })),
+      ],
+    },
+    {
+      heading: "Company",
+      links: [
+        { label: "About Us", href: "/about" },
+        { label: "Testimonials", href: "/testimonials" },
+        { label: "FAQ", href: "/faq" },
+        { label: "Careers", href: "/careers" },
+        { label: "Contact", href: "/contact" },
+      ],
+    },
+    {
+      heading: "Legal",
+      links: [
+        { label: "Privacy Policy", href: "/privacy-policy" },
+        { label: "Terms & Conditions", href: "/terms" },
+        { label: "Sitemap", href: "/sitemap-page" },
+      ],
+    },
+  ];
+}
 
-export default function SitemapPage() {
+export default async function SitemapPage() {
+  const blogPosts = await getAllPosts();
+  const groups = buildGroups(blogPosts);
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Sitemap", href: "/sitemap-page" }]} />

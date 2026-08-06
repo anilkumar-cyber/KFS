@@ -3,11 +3,12 @@ import { siteConfig } from "@/lib/site-config";
 import { loanProducts } from "@/lib/data/loans";
 import { properties } from "@/lib/data/properties";
 import { taxServices } from "@/lib/data/tax-services";
-import { blogPosts } from "@/lib/data/blogs";
+import { getAllPosts } from "@/lib/queries/blogs";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
   const now = new Date();
+  const blogPosts = await getAllPosts();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
@@ -52,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blogs/${post.slug}`,
-    lastModified: new Date(post.publishedOn),
+    lastModified: post.publishedOn,
     changeFrequency: "monthly",
     priority: 0.6,
   }));

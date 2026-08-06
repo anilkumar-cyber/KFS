@@ -5,7 +5,9 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
-import { testimonials } from "@/lib/data/testimonials";
+import { getApprovedTestimonials } from "@/lib/queries/testimonials";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Customer Testimonials",
@@ -14,7 +16,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/testimonials" },
 };
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const testimonials = await getApprovedTestimonials();
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Testimonials", href: "/testimonials" }]} />

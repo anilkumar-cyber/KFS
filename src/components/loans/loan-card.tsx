@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { renderLoanIcon } from "@/components/loans/loan-icon";
-import type { LoanProduct } from "@/lib/data/loans";
+import type { LoanProduct } from "@/lib/queries/loans";
 import { cn } from "@/lib/utils";
 
 export function LoanCard({ loan, className }: { loan: LoanProduct; className?: string }) {

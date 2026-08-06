@@ -5,7 +5,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
-import { securedLoans, unsecuredLoans } from "@/lib/data/loans";
+import { getSecuredLoans, getUnsecuredLoans } from "@/lib/queries/loans";
 import { LoanGrid } from "@/components/loans/loan-grid";
 
 export const metadata: Metadata = {
@@ -15,7 +15,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/loans" },
 };
 
-export default function LoansPage() {
+export const revalidate = 60;
+
+export default async function LoansPage() {
+  const [securedLoans, unsecuredLoans] = await Promise.all([getSecuredLoans(), getUnsecuredLoans()]);
+
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Loan Services", href: "/loans" }]} />

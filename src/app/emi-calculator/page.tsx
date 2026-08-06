@@ -4,7 +4,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { EmiCalculator } from "@/components/calculators/emi-calculator";
 import { LeadForm } from "@/components/shared/lead-form";
-import { loanProducts } from "@/lib/data/loans";
+import { getAllLoans } from "@/lib/queries/loans";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 
 export const metadata: Metadata = {
@@ -14,9 +14,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/emi-calculator" },
 };
 
-const interestOptions = loanProducts.map((l) => ({ value: l.slug, label: l.name }));
+export default async function EmiCalculatorPage() {
+  const loanProducts = await getAllLoans();
+  const interestOptions = loanProducts.map((l) => ({ value: l.slug, label: l.name }));
 
-export default function EmiCalculatorPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "EMI Calculator", href: "/emi-calculator" }]} />

@@ -1,14 +1,19 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { loanProducts } from "@/lib/data/loans";
+import { getAllLoans } from "@/lib/queries/loans";
 import { getAllProperties } from "@/lib/queries/properties";
-import { taxServices } from "@/lib/data/tax-services";
-import { blogPosts } from "@/lib/data/blogs";
+import { getAllTaxServices } from "@/lib/queries/tax-services";
+import { getAllPosts } from "@/lib/queries/blogs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
   const now = new Date();
-  const properties = await getAllProperties();
+  const [loanProducts, properties, taxServices, blogPosts] = await Promise.all([
+    getAllLoans(),
+    getAllProperties(),
+    getAllTaxServices(),
+    getAllPosts(),
+  ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
@@ -53,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blogs/${post.slug}`,
-    lastModified: new Date(post.publishedOn),
+    lastModified: post.publishedOn,
     changeFrequency: "monthly",
     priority: 0.6,
   }));

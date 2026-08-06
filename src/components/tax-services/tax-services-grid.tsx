@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, IndianRupee } from "lucide-react";
 import { getIcon } from "@/lib/icon-map";
-import type { TaxService } from "@/lib/data/tax-services";
+import type { TaxService } from "@/lib/queries/tax-services";
 
 export function TaxServicesGrid({ services }: { services: TaxService[] }) {
   return (

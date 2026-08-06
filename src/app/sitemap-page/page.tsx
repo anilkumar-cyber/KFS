@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
-import { loanProducts } from "@/lib/data/loans";
+import { getAllLoans } from "@/lib/queries/loans";
 import { getAllProperties, getAllAuctionProperties } from "@/lib/queries/properties";
-import { taxServices } from "@/lib/data/tax-services";
-import { blogPosts } from "@/lib/data/blogs";
+import { getAllTaxServices } from "@/lib/queries/tax-services";
+import { getAllPosts } from "@/lib/queries/blogs";
 
 export const metadata: Metadata = {
   title: "Sitemap",
@@ -17,9 +17,12 @@ type LinkItem = { label: string; href: string };
 type LinkGroup = { heading: string; links: LinkItem[] };
 
 async function getGroups(): Promise<LinkGroup[]> {
-  const [properties, auctionProperties] = await Promise.all([
+  const [loanProducts, properties, auctionProperties, taxServices, blogPosts] = await Promise.all([
+    getAllLoans(),
     getAllProperties(),
     getAllAuctionProperties(),
+    getAllTaxServices(),
+    getAllPosts(),
   ]);
 
   return [

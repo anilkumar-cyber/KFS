@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PropertyCard } from "@/components/real-estate/property-card";
-import { propertyTypeOptions, type Property, type PropertyType } from "@/lib/data/properties";
+import { propertyTypeOptions, type Property, type PropertyType } from "@/lib/queries/properties";
 import { formatINR } from "@/lib/calculators";
 
 const MAX_PRICE = 30000000; // ₹3 Crore

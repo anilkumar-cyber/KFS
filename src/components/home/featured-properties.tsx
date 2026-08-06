@@ -7,10 +7,10 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { properties } from "@/lib/data/properties";
+import type { Property } from "@/lib/queries/properties";
 
-export function FeaturedProperties() {
-  const featured = properties.filter((p) => p.featured).slice(0, 4);
+export function FeaturedProperties({ properties }: { properties: Property[] }) {
+  const featured = properties.slice(0, 4);
 
   return (
     <section className="py-20 sm:py-28 bg-muted/40">

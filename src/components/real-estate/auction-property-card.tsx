@@ -2,10 +2,10 @@ import { Banknote, Calendar, Gavel, MapPin, Ruler } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { AuctionProperty } from "@/lib/data/properties";
+import type { AuctionProperty } from "@/lib/queries/properties";
 
 export function AuctionPropertyCard({ property }: { property: AuctionProperty }) {
-  const auctionDate = new Date(property.auctionDate).toLocaleDateString("en-IN", {
+  const auctionDate = property.auctionDate.toLocaleDateString("en-IN", {
     day: "numeric",
     month: "long",
     year: "numeric",

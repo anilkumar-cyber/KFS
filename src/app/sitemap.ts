@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { loanProducts } from "@/lib/data/loans";
-import { properties } from "@/lib/data/properties";
+import { getAllProperties } from "@/lib/queries/properties";
 import { taxServices } from "@/lib/data/tax-services";
 import { blogPosts } from "@/lib/data/blogs";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
   const now = new Date();
+  const properties = await getAllProperties();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
@@ -38,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const propertyRoutes: MetadataRoute.Sitemap = properties.map((property) => ({
     url: `${baseUrl}/real-estate/${property.slug}`,
-    lastModified: new Date(property.postedOn),
+    lastModified: property.postedOn,
     changeFrequency: "weekly",
     priority: 0.7,
   }));

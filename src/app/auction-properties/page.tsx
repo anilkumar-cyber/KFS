@@ -5,7 +5,9 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { LeadForm } from "@/components/shared/lead-form";
 import { AuctionPropertyCard } from "@/components/real-estate/auction-property-card";
-import { auctionProperties } from "@/lib/data/properties";
+import { getAllAuctionProperties } from "@/lib/queries/properties";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Auction Properties - Bank Auctioned Properties (SARFAESI)",
@@ -37,7 +39,8 @@ const steps = [
   },
 ];
 
-export default function AuctionPropertiesPage() {
+export default async function AuctionPropertiesPage() {
+  const auctionProperties = await getAllAuctionProperties();
   const interestOptions = auctionProperties.map((p) => ({ value: p.title, label: p.title }));
 
   return (

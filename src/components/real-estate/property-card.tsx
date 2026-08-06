@@ -5,7 +5,7 @@ import { BedDouble, Landmark, MapPin, Ruler, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FavoriteButton } from "@/components/real-estate/favorite-button";
-import type { Property } from "@/lib/data/properties";
+import type { Property } from "@/lib/queries/properties";
 import { cn } from "@/lib/utils";
 
 export function PropertyCard({

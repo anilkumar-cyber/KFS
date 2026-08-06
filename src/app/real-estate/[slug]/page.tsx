@@ -29,10 +29,13 @@ import { LeadForm } from "@/components/shared/lead-form";
 import { PropertyGallery } from "@/components/real-estate/property-gallery";
 import { FavoriteButton } from "@/components/real-estate/favorite-button";
 import { ShareButton } from "@/components/real-estate/share-button";
-import { properties, getPropertyBySlug } from "@/lib/data/properties";
+import { getAllProperties, getPropertyBySlug } from "@/lib/queries/properties";
 
-export function generateStaticParams() {
-  return properties.map((p) => ({ slug: p.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const items = await getAllProperties();
+  return items.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -41,7 +44,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const property = getPropertyBySlug(slug);
+  const property = await getPropertyBySlug(slug);
 
   if (!property) {
     return { title: "Property Not Found" };
@@ -60,13 +63,13 @@ export default async function PropertyDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const property = getPropertyBySlug(slug);
+  const property = await getPropertyBySlug(slug);
 
   if (!property) {
     notFound();
   }
 
-  const postedDate = new Date(property.postedOn).toLocaleDateString("en-IN", {
+  const postedDate = property.postedOn.toLocaleDateString("en-IN", {
     day: "numeric",
     month: "long",
     year: "numeric",

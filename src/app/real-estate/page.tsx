@@ -3,7 +3,9 @@ import { Home } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { PropertyBrowser } from "@/components/real-estate/property-browser";
-import { properties } from "@/lib/data/properties";
+import { getAllProperties } from "@/lib/queries/properties";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Real Estate - Plots, Villas, Apartments & Commercial Properties",
@@ -12,7 +14,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/real-estate" },
 };
 
-export default function RealEstatePage() {
+export default async function RealEstatePage() {
+  const properties = await getAllProperties();
+
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Real Estate", href: "/real-estate" }]} />

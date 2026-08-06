@@ -12,7 +12,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { LeadForm } from "@/components/shared/lead-form";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
-import { taxServices } from "@/lib/data/tax-services";
+import { getAllTaxServices } from "@/lib/queries/tax-services";
 import { TaxServicesGrid } from "@/components/tax-services/tax-services-grid";
 
 export const metadata: Metadata = {
@@ -45,7 +45,11 @@ const whyChooseTaxDesk = [
   },
 ];
 
-export default function TaxServicesPage() {
+export const revalidate = 60;
+
+export default async function TaxServicesPage() {
+  const taxServices = await getAllTaxServices();
+
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Tax & Compliance Services", href: "/tax-services" }]} />

@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { loanProducts } from "@/lib/data/loans";
+import { getAllLoans } from "@/lib/queries/loans";
 import { properties } from "@/lib/data/properties";
-import { taxServices } from "@/lib/data/tax-services";
+import { getAllTaxServices } from "@/lib/queries/tax-services";
 import { blogPosts } from "@/lib/data/blogs";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
   const now = new Date();
+  const [loanProducts, taxServices] = await Promise.all([getAllLoans(), getAllTaxServices()]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: now, changeFrequency: "daily", priority: 1 },

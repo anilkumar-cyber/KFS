@@ -15,13 +15,16 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getTaxServiceBySlug, taxServices } from "@/lib/data/tax-services";
+import { getAllTaxServices, getTaxServiceBySlug } from "@/lib/queries/tax-services";
 import { getIcon } from "@/lib/icon-map";
 import { ProcessStepper } from "@/components/tax-services/process-stepper";
 import { ServiceIcon } from "@/components/tax-services/service-icon";
 
-export function generateStaticParams() {
-  return taxServices.map((s) => ({ slug: s.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const services = await getAllTaxServices();
+  return services.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +33,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = getTaxServiceBySlug(slug);
+  const service = await getTaxServiceBySlug(slug);
   if (!service) return {};
 
   return {
@@ -46,7 +49,7 @@ export default async function TaxServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getTaxServiceBySlug(slug);
+  const [service, taxServices] = await Promise.all([getTaxServiceBySlug(slug), getAllTaxServices()]);
   if (!service) notFound();
 
   const interestOptions = taxServices.map((s) => ({ value: s.slug, label: s.name }));

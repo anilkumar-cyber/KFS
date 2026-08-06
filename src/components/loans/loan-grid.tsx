@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { LoanProduct } from "@/lib/data/loans";
+import type { LoanProduct } from "@/lib/queries/loans";
 import { LoanCard } from "@/components/loans/loan-card";
 import { cn } from "@/lib/utils";
 

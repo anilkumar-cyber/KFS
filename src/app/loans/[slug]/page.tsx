@@ -31,12 +31,13 @@ import { Button } from "@/components/ui/button";
 import { LoanGrid } from "@/components/loans/loan-grid";
 import { RevealSection } from "@/components/loans/reveal-section";
 import { renderLoanIcon } from "@/components/loans/loan-icon";
-import { loanProducts, getLoanBySlug, getRelatedLoans } from "@/lib/data/loans";
+import { getAllLoans, getLoanBySlug, getRelatedLoans } from "@/lib/queries/loans";
 
-export const dynamicParams = false;
+export const revalidate = 60;
 
-export function generateStaticParams() {
-  return loanProducts.map((loan) => ({ slug: loan.slug }));
+export async function generateStaticParams() {
+  const loans = await getAllLoans();
+  return loans.map((loan) => ({ slug: loan.slug }));
 }
 
 export async function generateMetadata({
@@ -45,7 +46,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const loan = getLoanBySlug(slug);
+  const loan = await getLoanBySlug(slug);
   if (!loan) return {};
 
   return {
@@ -79,20 +80,23 @@ export default async function LoanDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const loan = getLoanBySlug(slug);
+  const loan = await getLoanBySlug(slug);
 
   if (!loan) {
     notFound();
   }
 
-  const relatedLoans = getRelatedLoans(loan.slug, loan.category, 3);
+  const [relatedLoans, allLoans] = await Promise.all([
+    getRelatedLoans(loan.slug, loan.category, 3),
+    getAllLoans(),
+  ]);
 
   const maxAmountNum = parseAmount(loan.maxAmount);
   const defaultPrincipal = Math.max(100000, Math.round((maxAmountNum * 0.4) / 10000) * 10000);
   const defaultRate = parseRate(loan.interestRate);
   const defaultTenure = parseTenure(loan.maxTenure);
 
-  const interestOptions = loanProducts.map((l) => ({ value: l.slug, label: l.name }));
+  const interestOptions = allLoans.map((l) => ({ value: l.slug, label: l.name }));
 
   const quickStats = [
     { icon: Percent, label: "Interest Rate", value: loan.interestRate },

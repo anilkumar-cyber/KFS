@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { Landmark } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { partnerBanks } from "@/lib/data/banks";
+import type { PartnerBank } from "@/lib/queries/banks";
 
-export function PartnerBanks() {
+export function PartnerBanks({ banks }: { banks: PartnerBank[] }) {
   return (
     <section className="py-20 sm:py-24 border-y border-border/60">
       <Container>
         <SectionHeading eyebrow="Our Network" title="Trusted by 25+ Banks & NBFCs" />
 
         <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {partnerBanks.map((bank, i) => (
+          {banks.map((bank, i) => (
             <motion.div
               key={bank.shortName}
               initial={{ opacity: 0, scale: 0.95 }}

@@ -6,23 +6,10 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Card } from "@/components/ui/card";
-import { loanProducts } from "@/lib/data/loans";
+import type { LoanProduct } from "@/lib/queries/loans";
 import { getIcon } from "@/lib/icon-map";
 
-const featuredSlugs = [
-  "home-loan",
-  "personal-loan",
-  "loan-against-property",
-  "business-loan",
-  "plot-loan",
-  "car-loan",
-  "education-loan",
-  "commercial-loan",
-];
-
-export function FeaturedLoans() {
-  const loans = featuredSlugs.map((slug) => loanProducts.find((l) => l.slug === slug)!).filter(Boolean);
-
+export function FeaturedLoans({ loans }: { loans: LoanProduct[] }) {
   return (
     <section className="py-20 sm:py-28">
       <Container>

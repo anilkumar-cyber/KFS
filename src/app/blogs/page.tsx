@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Container } from "@/components/shared/container";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { BlogBrowser } from "@/components/blog/blog-browser";
-import { blogPosts, blogCategories } from "@/lib/data/blogs";
+import { getAllPosts, getBlogCategories } from "@/lib/queries/blogs";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blog - Insights & Resources",
@@ -11,7 +13,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blogs" },
 };
 
-export default function BlogsPage() {
+export default async function BlogsPage() {
+  const [blogPosts, blogCategories] = await Promise.all([getAllPosts(), getBlogCategories()]);
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Blogs", href: "/blogs" }]} />

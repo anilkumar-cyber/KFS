@@ -11,9 +11,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { testimonials } from "@/lib/data/testimonials";
+import type { Testimonial } from "@/lib/queries/testimonials";
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
     <section className="py-20 sm:py-28 bg-muted/40">
       <Container>

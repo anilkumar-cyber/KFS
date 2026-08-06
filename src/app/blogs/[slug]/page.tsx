@@ -8,12 +8,15 @@ import { Badge } from "@/components/ui/badge";
 import { LeadForm } from "@/components/shared/lead-form";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { FacebookIcon, TwitterIcon, LinkedInIcon } from "@/components/shared/social-icons";
-import { blogPosts, getBlogBySlug } from "@/lib/data/blogs";
+import { getAllPosts, getBlogBySlug } from "@/lib/queries/blogs";
 import { loanProducts } from "@/lib/data/loans";
 import { siteConfig } from "@/lib/site-config";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -22,7 +25,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogBySlug(slug);
   if (!post) return {};
 
   return {
@@ -33,7 +36,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       type: "article",
-      publishedTime: post.publishedOn,
+      publishedTime: post.publishedOn.toISOString(),
       images: [{ url: post.image, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
@@ -49,10 +52,11 @@ const interestOptions = loanProducts.map((l) => ({ value: l.slug, label: l.name 
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogBySlug(slug);
   if (!post) notFound();
 
-  const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
+  const allPosts = await getAllPosts();
+  const relatedPosts = allPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
 
   const pageUrl = `${siteConfig.url}/blogs/${post.slug}`;
   const shareText = encodeURIComponent(post.title);
@@ -101,7 +105,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="size-4" />
-                {new Date(post.publishedOn).toLocaleDateString("en-IN", {
+                {post.publishedOn.toLocaleDateString("en-IN", {
                   day: "numeric",
                   month: "long",
                   year: "numeric",

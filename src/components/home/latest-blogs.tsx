@@ -7,11 +7,9 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { blogPosts } from "@/lib/data/blogs";
+import type { BlogPost } from "@/lib/queries/blogs";
 
-export function LatestBlogs() {
-  const posts = blogPosts.slice(0, 3);
-
+export function LatestBlogs({ posts }: { posts: BlogPost[] }) {
   return (
     <section className="py-20 sm:py-28 bg-muted/40">
       <Container>
@@ -44,7 +42,7 @@ export function LatestBlogs() {
                     <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Calendar className="size-3.5" />
-                        {new Date(post.publishedOn).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                        {post.publishedOn.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="size-3.5" /> {post.readMinutes} min read

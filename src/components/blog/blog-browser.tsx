@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import type { BlogPost } from "@/lib/data/blogs";
+import type { BlogPost } from "@/lib/queries/blogs";
 
 export function BlogBrowser({ posts, categories }: { posts: BlogPost[]; categories: string[] }) {
   const [query, setQuery] = React.useState("");
@@ -79,7 +79,7 @@ export function BlogBrowser({ posts, categories }: { posts: BlogPost[]; categori
                   <div className="flex items-center gap-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <Calendar className="size-3.5" />
-                      {new Date(post.publishedOn).toLocaleDateString("en-IN", {
+                      {post.publishedOn.toLocaleDateString("en-IN", {
                         day: "numeric",
                         month: "short",
                         year: "numeric",

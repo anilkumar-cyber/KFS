@@ -6,7 +6,9 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/shared/json-ld";
-import { generalFaqs } from "@/lib/data/faqs";
+import { getAllFaqs } from "@/lib/queries/faqs";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
@@ -17,7 +19,9 @@ export const metadata: Metadata = {
 
 const categoryOrder = ["General", "Loans", "Real Estate", "Taxation"];
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const generalFaqs = await getAllFaqs();
+
   const grouped = categoryOrder
     .map((category) => ({
       category,

@@ -1,0 +1,88 @@
+# Production stack for kfs.gativcare.com, routed by the host's Traefik
+# (docker provider, `letsencrypt` resolver) over the external n8n_default network.
+#
+# First deploy / update:
+#   docker compose -f docker-compose.prod.yml up -d postgres
+#   docker compose -f docker-compose.prod.yml run --rm migrate
+#   docker compose -f docker-compose.prod.yml run --rm seed      # first deploy only
+#   docker compose -f docker-compose.prod.yml up -d --build kfs
+#
+# Needs a .env next to this file with POSTGRES_PASSWORD, SESSION_SECRET, ADMIN_SEED_PASSWORD.
+
+x-db-url: &db-url postgresql://kfs:${POSTGRES_PASSWORD}@kfs-postgres:5432/kfs?schema=public
+
+services:
+  kfs:
+    build:
+      context: .
+      target: runner
+      network: host
+      args:
+        # Build runs on the host network, so it reaches Postgres via the loopback port.
+        DATABASE_URL: postgresql://kfs:${POSTGRES_PASSWORD}@127.0.0.1:5436/kfs?schema=public
+    container_name: kfs-web
+    restart: always
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: *db-url
+      SESSION_SECRET: ${SESSION_SECRET}
+    depends_on:
+      - postgres
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=n8n_default
+      - traefik.http.routers.kfs.rule=Host(`kfs.gativcare.com`)
+      - traefik.http.routers.kfs.entrypoints=web,websecure
+      - traefik.http.routers.kfs.tls=true
+      - traefik.http.routers.kfs.tls.certresolver=letsencrypt
+      - traefik.http.services.kfs.loadbalancer.server.port=3000
+    networks:
+      - n8n_default
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: kfs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kfs
+      POSTGRES_USER: kfs
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:5436:5432"
+    volumes:
+      - kfs_pgdata:/var/lib/postgresql/data
+    networks:
+      - n8n_default
+
+  migrate:
+    build:
+      context: .
+      target: prisma
+    environment:
+      DATABASE_URL: *db-url
+    depends_on:
+      - postgres
+    networks:
+      - n8n_default
+    profiles: ["tools"]
+
+  seed:
+    build:
+      context: .
+      target: prisma
+    command: ["npx", "tsx", "prisma/seed.ts"]
+    environment:
+      DATABASE_URL: *db-url
+      ADMIN_SEED_PASSWORD: ${ADMIN_SEED_PASSWORD}
+    depends_on:
+      - postgres
+    networks:
+      - n8n_default
+    profiles: ["tools"]
+
+volumes:
+  kfs_pgdata:
+
+networks:
+  n8n_default:
+    external: true

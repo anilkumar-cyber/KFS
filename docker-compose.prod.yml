@@ -1,4 +1,5 @@
-# Production stack for kfs.gativcare.com, routed by the host's Traefik
+# Production stack for www.kavyafinancialservices.com (apex redirects to www;
+# kfs.gativcare.com still served), routed by the host's Traefik
 # (docker provider, `letsencrypt` resolver) over the external n8n_default network.
 #
 # First deploy / update:
@@ -35,6 +36,17 @@ services:
       - traefik.http.routers.kfs.entrypoints=web,websecure
       - traefik.http.routers.kfs.tls=true
       - traefik.http.routers.kfs.tls.certresolver=letsencrypt
+      - traefik.http.routers.kfs.service=kfs
+      # Primary domain: separate router so its certificate is issued independently.
+      - traefik.http.routers.kfs-main.rule=Host(`www.kavyafinancialservices.com`) || Host(`kavyafinancialservices.com`)
+      - traefik.http.routers.kfs-main.entrypoints=web,websecure
+      - traefik.http.routers.kfs-main.tls=true
+      - traefik.http.routers.kfs-main.tls.certresolver=letsencrypt
+      - traefik.http.routers.kfs-main.service=kfs
+      - traefik.http.routers.kfs-main.middlewares=kfs-apex-to-www
+      - traefik.http.middlewares.kfs-apex-to-www.redirectregex.regex=^https?://kavyafinancialservices\.com/(.*)
+      - traefik.http.middlewares.kfs-apex-to-www.redirectregex.replacement=https://www.kavyafinancialservices.com/$${1}
+      - traefik.http.middlewares.kfs-apex-to-www.redirectregex.permanent=true
       - traefik.http.services.kfs.loadbalancer.server.port=3000
     networks:
       - n8n_default

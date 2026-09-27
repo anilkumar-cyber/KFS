@@ -135,22 +135,6 @@ export const mainNav: (NavGroup | NavLink)[] = [
       },
     ],
   },
-  {
-    label: "Marketing",
-    href: "/lead-generation",
-    columns: [
-      {
-        heading: "Growth Services",
-        links: [
-          { label: "Lead Generation", href: "/lead-generation" },
-          { label: "Digital Marketing", href: "/lead-generation#digital-marketing" },
-          { label: "WhatsApp Marketing", href: "/lead-generation#whatsapp-marketing" },
-          { label: "AI Chatbot", href: "/lead-generation#ai-chatbot" },
-          { label: "Landing Page Development", href: "/lead-generation#landing-pages" },
-        ],
-      },
-    ],
-  },
   { label: "Blogs", href: "/blogs" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -178,7 +162,6 @@ export const footerLinks = {
     { label: "Auction Properties", href: "/auction-properties" },
     { label: "GST Services", href: "/tax-services/gst-registration" },
     { label: "Income Tax Filing", href: "/tax-services/income-tax-filing" },
-    { label: "Lead Generation", href: "/lead-generation" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },

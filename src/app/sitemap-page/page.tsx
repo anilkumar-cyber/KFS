@@ -32,7 +32,6 @@ async function getGroups(): Promise<LinkGroup[]> {
         { label: "Home", href: "/" },
         { label: "EMI Calculator", href: "/emi-calculator" },
         { label: "Eligibility Calculator", href: "/eligibility-calculator" },
-        { label: "Lead Generation & Marketing", href: "/lead-generation" },
       ],
     },
     {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Building2, Calculator, Gavel, Megaphone, Receipt, Wallet } from "lucide-react";
+import { ArrowRight, Building2, Calculator, Gavel, Receipt, Wallet } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -30,12 +30,6 @@ const services = [
     title: "GST & Taxation",
     description: "GST registration, filing, TDS, income tax returns & company registration.",
     href: "/tax-services",
-  },
-  {
-    icon: Megaphone,
-    title: "Lead Generation & Marketing",
-    description: "Digital marketing, WhatsApp marketing, AI chatbots & landing pages for your business.",
-    href: "/lead-generation",
   },
   {
     icon: Calculator,

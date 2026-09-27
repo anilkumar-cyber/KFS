@@ -5,7 +5,7 @@ export const generalFaqs: FaqItem[] = [
     category: "General",
     question: "What services does Kavya Financial Services offer?",
     answer:
-      "We offer secured & unsecured loans (home, mortgage, LAP, personal, business, education, car and more), real estate sales, bank auction properties, GST & income tax services, and digital marketing/lead-generation services across Telangana, Andhra Pradesh and Karnataka.",
+      "We offer secured & unsecured loans (home, mortgage, LAP, personal, business, education, car and more), real estate sales, bank auction properties, and GST & income tax services across Telangana, Andhra Pradesh and Karnataka.",
   },
   {
     category: "General",

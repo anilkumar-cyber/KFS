@@ -35,7 +35,7 @@ export const whyChooseUs = [
   },
   {
     title: "One-Stop Financial Partner",
-    description: "Loans, real estate, taxation and digital marketing — all under one trusted roof.",
+    description: "Loans, real estate and taxation — all under one trusted roof.",
     icon: "Layers",
   },
 ];

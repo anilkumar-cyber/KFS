@@ -21,7 +21,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Careers",
   description:
-    "Join Kavya Financial Services. Explore current openings in loans, real estate, taxation and digital marketing across Telangana, Andhra Pradesh & Karnataka.",
+    "Join Kavya Financial Services. Explore current openings in loans, real estate and taxation across Telangana, Andhra Pradesh & Karnataka.",
   alternates: { canonical: "/careers" },
 };
 
@@ -79,13 +79,6 @@ const jobOpenings = [
     type: "Full-time",
     description:
       "Support GST registration, filing and income tax return preparation for individual and business clients, ensuring accuracy and on-time compliance.",
-  },
-  {
-    title: "Digital Marketing Executive",
-    location: siteConfig.locations[0],
-    type: "Full-time",
-    description:
-      "Plan and execute digital campaigns, manage social media and support lead-generation efforts for our loans, real estate and tax service lines.",
   },
   {
     title: "Telecaller / Lead Qualifier",

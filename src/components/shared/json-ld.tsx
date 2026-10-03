@@ -11,7 +11,9 @@ export function OrganizationJsonLd() {
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.address,
+      streetAddress: siteConfig.streetAddress,
+      addressLocality: siteConfig.city,
+      postalCode: siteConfig.postalCode,
       addressRegion: "Telangana",
       addressCountry: "IN",
     },

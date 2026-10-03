@@ -92,7 +92,7 @@ const locationDetails = [
   {
     state: "Telangana",
     description:
-      "Our home base — headquartered in Hyderabad's Financial District, with dedicated relationship managers serving Hyderabad, Warangal, Karimnagar and Nizamabad.",
+      "Our home base — headquartered in Pragathi Nagar, Hyderabad, with dedicated relationship managers serving Hyderabad, Warangal, Karimnagar and Nizamabad.",
   },
   {
     state: "Andhra Pradesh",

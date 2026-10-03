@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/shared/social-icons";
 import { siteConfig } from "@/lib/site-config";
 
 export function CtaSection() {
@@ -39,6 +40,11 @@ export function CtaSection() {
             >
               <a href={`tel:${siteConfig.phoneRaw}`}>
                 <Phone className="size-4" /> {siteConfig.phone}
+              </a>
+            </Button>
+            <Button asChild size="lg" className="rounded-full h-12 px-7 bg-[#25D366] text-white hover:bg-[#1EBE5A] font-semibold">
+              <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className="size-5" /> Chat on WhatsApp
               </a>
             </Button>
           </div>

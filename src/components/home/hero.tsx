@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Container } from "@/components/shared/container";
 import { siteConfig } from "@/lib/site-config";
+import heroBg from "../../../public/images/hero_bg.png";
 
 const searchCategories = [
   { value: "home-loan", label: "Home Loan", href: "/loans/home-loan" },
@@ -33,8 +35,19 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-hero-gradient">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 right-[-10%] size-[520px] rounded-full bg-secondary/25 blur-[120px]" />
-        <div className="absolute bottom-[-15%] left-[-5%] size-[420px] rounded-full bg-accent/20 blur-[120px]" />
+        <Image
+          src={heroBg}
+          alt=""
+          fill
+          sizes="100vw"
+          placeholder="blur"
+          loading="eager"
+          fetchPriority="high"
+          className="object-cover object-[75%_center]"
+        />
+        {/* Keep the copy on the left readable; let the house/coins on the right show through on desktop */}
+        <div className="absolute inset-0 bg-[#0A2540]/70 lg:bg-transparent lg:bg-gradient-to-r lg:from-[#0A2540]/90 lg:via-[#0A2540]/55 lg:to-[#0A2540]/10" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#061627]/70 to-transparent" />
       </div>
 
       <Container className="relative pt-16 pb-24 sm:pt-20 sm:pb-32 lg:pt-24 lg:pb-36">
@@ -55,7 +68,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.08 }}
               className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white text-balance"
             >
-              Your Trusted Partner for <span className="text-gradient-gold">Loans, Real Estate</span> &amp; Financial Growth
+              Your Trusted Partner for <span className="text-gradient-gold">Loans, Real Estate</span>{" "}
+              &amp; Financial Growth
             </motion.h1>
 
             <motion.p
@@ -64,8 +78,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.16 }}
               className="mt-5 max-w-xl text-base sm:text-lg text-white/70 text-pretty"
             >
-              From home loans to GST filing, property investments to business growth — {siteConfig.name} delivers
-              end-to-end financial solutions across Telangana, Andhra Pradesh &amp; Karnataka.
+              From home loans to GST filing, property investments to business growth — {siteConfig.name}{" "}
+              delivers end-to-end financial solutions across Telangana, Andhra Pradesh &amp; Karnataka.
             </motion.p>
 
             <motion.div
@@ -124,7 +138,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-5"
           >
-            <div className="glass rounded-3xl p-6 sm:p-7 shadow-premium">
+            <div className="rounded-3xl border border-white/15 bg-[#0A2540]/60 backdrop-blur-xl p-6 sm:p-7 shadow-premium">
               <h3 className="text-white font-heading font-bold text-lg mb-1">Find the Right Financial Solution</h3>
               <p className="text-white/60 text-sm mb-5">Search loans &amp; properties tailored to your needs</p>
 

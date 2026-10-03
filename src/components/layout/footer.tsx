@@ -7,9 +7,17 @@ import { Container } from "@/components/shared/container";
 import { Logo } from "@/components/shared/logo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FacebookIcon, InstagramIcon, LinkedInIcon, TwitterIcon, YouTubeIcon } from "@/components/shared/social-icons";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  TwitterIcon,
+  WhatsAppIcon,
+  YouTubeIcon,
+} from "@/components/shared/social-icons";
 
 const social = [
+  { href: siteConfig.whatsappUrl, icon: WhatsAppIcon, label: "WhatsApp" },
   { href: siteConfig.social.facebook, icon: FacebookIcon, label: "Facebook" },
   { href: siteConfig.social.instagram, icon: InstagramIcon, label: "Instagram" },
   { href: siteConfig.social.linkedin, icon: LinkedInIcon, label: "LinkedIn" },
@@ -46,11 +54,26 @@ export function Footer() {
               <a href={`tel:${siteConfig.phoneRaw}`} className="flex items-center gap-2 hover:text-gold transition-colors">
                 <Phone className="size-4 shrink-0" /> {siteConfig.phone}
               </a>
+              <a
+                href={siteConfig.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-gold transition-colors"
+              >
+                <WhatsAppIcon className="size-4 shrink-0 text-[#25D366]" /> WhatsApp: {siteConfig.phone}
+              </a>
               <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 hover:text-gold transition-colors">
                 <Mail className="size-4 shrink-0" /> {siteConfig.email}
               </a>
               <span className="flex items-start gap-2">
-                <MapPin className="size-4 shrink-0 mt-0.5" /> {siteConfig.address}
+                <MapPin className="size-4 shrink-0 mt-0.5" />
+                <span>
+                  {siteConfig.addressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
               </span>
             </div>
             <div className="mt-5 flex items-center gap-2">
@@ -61,7 +84,11 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="flex size-9 items-center justify-center rounded-full bg-white/5 hover:bg-gold hover:text-primary transition-colors"
+                  className={
+                    s.label === "WhatsApp"
+                      ? "flex size-9 items-center justify-center rounded-full bg-[#25D366] text-white hover:bg-[#1EBE5A] transition-colors"
+                      : "flex size-9 items-center justify-center rounded-full bg-white/5 hover:bg-gold hover:text-primary transition-colors"
+                  }
                 >
                   <s.icon className="size-4" />
                 </a>

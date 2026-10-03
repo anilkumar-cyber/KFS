@@ -4,6 +4,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { LeadForm } from "@/components/shared/lead-form";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
+import { WhatsAppIcon } from "@/components/shared/social-icons";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -27,7 +28,13 @@ const contactCards = [
     icon: Phone,
     title: "Call Us",
     lines: [siteConfig.phone],
-    href: `tel:+${siteConfig.phoneRaw}`,
+    href: `tel:${siteConfig.phoneRaw}`,
+  },
+  {
+    icon: WhatsAppIcon,
+    title: "WhatsApp",
+    lines: [siteConfig.phone, "Chat with us instantly"],
+    href: siteConfig.whatsappUrl,
   },
   {
     icon: Mail,
@@ -38,8 +45,8 @@ const contactCards = [
   {
     icon: MapPin,
     title: "Visit Us",
-    lines: [siteConfig.address],
-    href: `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.address)}`,
+    lines: [...siteConfig.addressLines],
+    href: `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.mapQuery)}`,
   },
   {
     icon: Clock,
@@ -68,11 +75,17 @@ export default function ContactPage() {
 
       <section className="py-14 sm:py-20">
         <Container>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {contactCards.map((card) => {
               const Content = (
                 <div className="rounded-2xl border border-border/70 p-6 h-full hover:shadow-premium transition-shadow">
-                  <div className="flex size-11 items-center justify-center rounded-xl bg-secondary/10 text-secondary mb-4">
+                  <div
+                    className={
+                      card.icon === WhatsAppIcon
+                        ? "flex size-11 items-center justify-center rounded-xl bg-[#25D366] text-white mb-4"
+                        : "flex size-11 items-center justify-center rounded-xl bg-secondary/10 text-secondary mb-4"
+                    }
+                  >
                     <card.icon className="size-5" />
                   </div>
                   <h3 className="font-heading font-bold mb-2">{card.title}</h3>
@@ -119,7 +132,7 @@ export default function ContactPage() {
               <div className="rounded-2xl overflow-hidden border border-border/70 h-80 lg:h-[420px]">
                 <iframe
                   title="Kavya Financial Services Location"
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(siteConfig.address)}&output=embed`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(siteConfig.mapQuery)}&output=embed`}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -130,7 +143,7 @@ export default function ContactPage() {
               <div className="rounded-2xl bg-card border border-border/70 p-6">
                 <h3 className="font-heading font-bold mb-2">Our Offices</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Headquartered in Hyderabad, we serve customers across{" "}
+                  Headquartered in Pragathi Nagar, Hyderabad, we serve customers across{" "}
                   {siteConfig.locations.join(", ")} through our network of relationship managers, branch
                   partners and digital channels. Can&apos;t visit in person? Our team is happy to assist over phone,
                   email or WhatsApp.

@@ -5,11 +5,20 @@ export const siteConfig = {
   description:
     "Kavya Financial Services offers home loans, mortgage loans, personal loans, business loans, real estate, and taxation services across Telangana, Andhra Pradesh & Karnataka.",
   url: "https://www.kavyafinancialservices.com",
-  phone: "+91 98765 43210",
-  phoneRaw: "919876543210",
-  whatsapp: "919876543210",
-  email: "info@kavyafinancialservices.com",
-  address: "3rd Floor, Financial District, Nanakramguda, Hyderabad, Telangana 500032",
+  phone: "+91 83091 71003",
+  /** For tel: links */
+  phoneRaw: "+918309171003",
+  /** Country code + number, no "+", for wa.me links */
+  whatsapp: "918309171003",
+  whatsappUrl: "https://wa.me/918309171003",
+  email: "kavyanjali10001@gmail.com",
+  address: "Plot No. 70 & 71, Pragathi Nagar, Near Vijetha Super Market, Hyderabad - 500090",
+  addressLines: ["Plot No. 70 & 71, Pragathi Nagar", "Near Vijetha Super Market", "Hyderabad - 500090"],
+  streetAddress: "Plot No. 70 & 71, Pragathi Nagar, Near Vijetha Super Market",
+  city: "Hyderabad",
+  postalCode: "500090",
+  /** Query used for Google Maps links/embeds */
+  mapQuery: "Vijetha Super Market, Pragathi Nagar, Hyderabad 500090",
   locations: ["Telangana", "Andhra Pradesh", "Karnataka"],
   hours: "Mon - Sat: 9:30 AM - 7:00 PM",
   social: {

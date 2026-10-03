@@ -19,6 +19,7 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/shared/logo";
+import { WhatsAppIcon } from "@/components/shared/social-icons";
 
 function isGroup(item: NavGroup | NavLink): item is NavGroup {
   return "columns" in item;
@@ -186,6 +187,11 @@ export function Navbar() {
                   <Button asChild variant="outline" className="rounded-full">
                     <a href={`tel:${siteConfig.phoneRaw}`}>
                       <Phone className="size-4" /> Call {siteConfig.phone}
+                    </a>
+                  </Button>
+                  <Button asChild className="rounded-full bg-[#25D366] text-white hover:bg-[#1EBE5A]">
+                    <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                      <WhatsAppIcon className="size-4" /> Chat on WhatsApp
                     </a>
                   </Button>
                 </div>

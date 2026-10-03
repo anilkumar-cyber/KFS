@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +9,7 @@ import { ChevronDown, Menu, Phone, Search, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { mainNav, secondaryNav, siteConfig, type NavGroup, type NavLink } from "@/lib/site-config";
+import { brandImages } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -213,7 +215,7 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="hidden lg:block absolute left-0 right-0 border-t border-border bg-popover/98 backdrop-blur-xl shadow-premium"
+                  className="hidden lg:block absolute left-0 right-0 border-t border-border bg-popover shadow-premium"
                   onMouseEnter={() => setOpenMenu(item.label)}
                 >
                   <div className="mx-auto max-w-7xl container-px py-8 grid grid-cols-12 gap-8">
@@ -241,8 +243,21 @@ export function Navbar() {
                     {item.featured && (
                       <Link
                         href={item.featured.href}
-                        className="col-span-4 group relative overflow-hidden rounded-2xl bg-hero-gradient p-6 flex flex-col justify-end min-h-[180px] shadow-premium"
+                        className="col-span-4 group relative overflow-hidden rounded-2xl bg-hero-gradient p-6 flex flex-col justify-end min-h-[260px] shadow-premium"
                       >
+                        {item.featured.image && (
+                          <>
+                            <Image
+                              src={brandImages[item.featured.image]}
+                              alt=""
+                              fill
+                              sizes="(min-width: 1280px) 400px, 33vw"
+                              placeholder="blur"
+                              className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#061627] from-15% via-[#061627]/75 via-50% to-transparent" />
+                          </>
+                        )}
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/40 to-transparent" />
                         <span className="relative text-xs font-semibold uppercase tracking-wider text-gold mb-1.5">Featured</span>
                         <h4 className="relative text-white text-lg font-bold mb-1">{item.featured.title}</h4>

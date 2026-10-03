@@ -43,7 +43,8 @@ export type NavGroup = {
     heading: string;
     links: NavLink[];
   }[];
-  featured?: { title: string; description: string; href: string };
+  /** `image` is a key of `brandImages` in lib/images.ts */
+  featured?: { title: string; description: string; href: string; image?: "loans" | "realEstate" };
 };
 
 export const secondaryNav = [
@@ -88,6 +89,7 @@ export const mainNav: (NavGroup | NavLink)[] = [
       title: "Check Loan Eligibility",
       description: "Find your eligible loan amount in under a minute.",
       href: "/eligibility-calculator",
+      image: "loans",
     },
   },
   {
@@ -118,6 +120,7 @@ export const mainNav: (NavGroup | NavLink)[] = [
       title: "Auction Properties",
       description: "Bank-auctioned properties at attractive prices.",
       href: "/auction-properties",
+      image: "realEstate",
     },
   },
   {

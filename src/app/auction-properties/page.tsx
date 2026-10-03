@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FileCheck2, Gavel, Landmark, ScrollText, Wallet } from "lucide-react";
 import { Container } from "@/components/shared/container";
+import { PageHeroImage } from "@/components/shared/page-hero-image";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { LeadForm } from "@/components/shared/lead-form";
@@ -49,8 +50,9 @@ export default async function AuctionPropertiesPage() {
         items={[{ name: "Home", href: "/" }, { name: "Auction Properties", href: "/auction-properties" }]}
       />
 
-      <section className="bg-hero-gradient py-16 sm:py-20">
-        <Container>
+      <section className="relative overflow-hidden bg-hero-gradient py-16 sm:py-20">
+        <PageHeroImage image="realEstate" position="center 40%" />
+        <Container className="relative">
           <div className="flex flex-col items-center text-center gap-4">
             <div className="flex size-14 items-center justify-center rounded-2xl bg-white/10 text-gold">
               <Gavel className="size-7" />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Wallet, ArrowRight, Sparkles } from "lucide-react";
 import { Container } from "@/components/shared/container";
+import { PageHeroImage } from "@/components/shared/page-hero-image";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
@@ -24,8 +25,9 @@ export default async function LoansPage() {
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Loan Services", href: "/loans" }]} />
 
-      <section className="bg-hero-gradient py-16 sm:py-24">
-        <Container>
+      <section className="relative overflow-hidden bg-hero-gradient py-16 sm:py-24">
+        <PageHeroImage image="loans" />
+        <Container className="relative">
           <div className="flex flex-col items-center text-center gap-5">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white/90">
               <Sparkles className="size-3.5" /> 13 Loan Products

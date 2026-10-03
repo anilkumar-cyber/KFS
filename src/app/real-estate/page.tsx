@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Home } from "lucide-react";
 import { Container } from "@/components/shared/container";
+import { PageHeroImage } from "@/components/shared/page-hero-image";
 import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { PropertyBrowser } from "@/components/real-estate/property-browser";
 import { getAllProperties } from "@/lib/queries/properties";
@@ -20,8 +21,9 @@ export default async function RealEstatePage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Real Estate", href: "/real-estate" }]} />
-      <section className="bg-hero-gradient py-16 sm:py-20">
-        <Container>
+      <section className="relative overflow-hidden bg-hero-gradient py-16 sm:py-20">
+        <PageHeroImage image="realEstate" position="center 40%" />
+        <Container className="relative">
           <div className="flex flex-col items-center text-center gap-4">
             <div className="flex size-14 items-center justify-center rounded-2xl bg-white/10 text-gold">
               <Home className="size-7" />

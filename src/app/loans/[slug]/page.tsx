@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
+import { PageHeroImage } from "@/components/shared/page-hero-image";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { EmiCalculator } from "@/components/calculators/emi-calculator";
 import { LeadForm } from "@/components/shared/lead-form";
@@ -116,8 +117,9 @@ export default async function LoanDetailPage({
       />
       <FaqJsonLd faqs={loan.faqs} />
 
-      <section className="bg-hero-gradient py-14 sm:py-20">
-        <Container>
+      <section className="relative overflow-hidden bg-hero-gradient py-14 sm:py-20">
+        <PageHeroImage image="loans" />
+        <Container className="relative">
           <Breadcrumb className="mb-8">
             <BreadcrumbList className="text-white/60">
               <BreadcrumbItem>
